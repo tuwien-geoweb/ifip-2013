@@ -1,0 +1,18 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "IFIP"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          16.368448734283447,
+          48.198956013020144
+        ]
+      }
+    }
+  ]
+}

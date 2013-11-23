@@ -90,3 +90,29 @@ form.onsubmit = function(evt) {
   xhr.send();
   evt.preventDefault();
 };
+
+// Add comment layer to the map
+var commentLayer = new ol.layer.Image({
+  source: new ol.source.ImageWMS({
+    url: '/geoserver/wms',
+    params: {'LAYERS': 'ifip_2013:comments'}
+  })
+});
+olMap.addLayer(commentLayer);
+
+// Submit comment
+var comment = document.forms[1];
+comment.onsubmit = function(evt) {
+  var lonlat = ol.proj.transform(popup.getPosition(), 'EPSG:3857', 'EPSG:4326');
+  var url = 'comment.php?comment=' + comment.comment.value +
+      '&longitude=' + lonlat[0] + '&latitude=' + lonlat[1];
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', url);
+  xhr.onload = function() {
+    commentLayer.getSource().updateParams({});
+    alert(xhr.responseText);
+    comment.comment.value = '';
+  };
+  xhr.send();
+  evt.preventDefault();
+};
